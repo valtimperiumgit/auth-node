@@ -2,6 +2,7 @@ import User, { IUser } from "../models/entities/User";
 import bcrypt from "bcrypt";
 import { ApiError } from "../exceptions/ApiError";
 import TokenService from "./TokenService";
+import { UserDto } from "../models/dtos/UserDto";
 
 
 class UserService {
@@ -32,7 +33,7 @@ class UserService {
             await TokenService.saveToken(user._id, tokens.refreshToken);
         }
 
-        return {user: user, tokens: tokens};
+        return {user: new UserDto(user), tokens: tokens};
     }
 
     async validateCreating(user: IUser){
