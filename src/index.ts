@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser"
 import { errorMiddleware } from "./middleware/ErrorMiddleware";
 import cors from "cors";
 import fs from "fs";
-import https from "https";
 
 import dotenv from 'dotenv'
 dotenv.config()
@@ -27,11 +26,11 @@ app.use('/api/authorization', authorizationRouter);
 
 app.use(errorMiddleware);
 
-const https_options = {
-    ca: fs.readFileSync("ssl/ca_bundle.crt"),
-    key: fs.readFileSync("ssl/private.key"),
-    cert: fs.readFileSync("ssl/certificate.crt")
-   };
+// const https_options = {
+//     ca: fs.readFileSync("ssl/ca_bundle.crt"),
+//     key: fs.readFileSync("ssl/private.key"),
+//     cert: fs.readFileSync("ssl/certificate.crt")
+//    };
 
    const startApp = async () => {
     try{
@@ -47,7 +46,4 @@ const https_options = {
 
 startApp();
 
-https.createServer(https_options, app).listen(443, () => {
-    console.log('HTTPS server running on port 443');
-  });
 
